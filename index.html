@@ -3,304 +3,1783 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Deliverables — 12 Feb 2026</title>
+    <title>Daily Deliverables — 12 Feb 2026 | OpenClaw</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
         }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
         }
-        .metric-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        .section-divider {
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.2), transparent);
         }
-        .ticket-research { border-left: 4px solid #8b5cf6; }
-        .ticket-task { border-left: 4px solid #10b981; }
-        .code-block {
-            background: #1e293b;
-            color: #e2e8f0;
+        details > summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::before {
+            content: '▶';
+            margin-right: 0.5rem;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        details[open] > summary::before {
+            transform: rotate(90deg);
+        }
+        .code-preview {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .code-preview::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .code-preview::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        .code-preview::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.5);
+            border-radius: 4px;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen">
-    <!-- Hero Section -->
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div>
-                    <p class="text-sm font-medium text-indigo-600 uppercase tracking-wide mb-2">OpenClaw Workspace</p>
-                    <h1 class="text-3xl md:text-5xl font-bold gradient-text mb-4">Daily Deliverables</h1>
-                    <p class="text-xl text-gray-500">12 February 2026</p>
-                </div>
-                <div class="flex flex-wrap gap-3">
-                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
-                        <i data-lucide="check-circle" class="w-4 h-4 mr-2"></i>
-                        14 tickets advanced
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
-                        <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                        4 tools deployed
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                        <i data-lucide="lightbulb" class="w-4 h-4 mr-2"></i>
-                        3 insights found
-                    </span>
-                </div>
-            </div>
-            
-            <!-- Today's Theme -->
-            <div class="mt-8 p-6 metric-card rounded-2xl">
-                <div class="flex items-start gap-4">
-                    <div class="p-3 bg-indigo-500 rounded-xl text-white">
-                        <i data-lucide="compass" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-900 mb-1">Today's Theme</h2>
-                        <p class="text-gray-700 text-lg leading-relaxed">
-                            Building systems that compound — from research frameworks to document architecture to planning templates, 
-                            today's work focused on reusable infrastructure that elevates everything that follows.
-                        </p>
-                    </div>
-                </div>
-            </div>
+<body class="text-slate-200 font-sans">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+        <!-- Hero Section -->
+<header class="hero-gradient rounded-2xl p-6 md:p-10 mb-10 border border-slate-700/30">
+    <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 text-slate-400 text-sm mb-4">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Thursday, 12 February 2026</span>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            Daily Deliverables
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400">
+            Design Excellence
+        </p>
+    </div>
+    
+    <!-- Metrics Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-blue-400 mb-1">6</div>
+            <div class="text-sm text-slate-500">Tickets</div>
+        </div>
+        <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-violet-400 mb-1">5</div>
+            <div class="text-sm text-slate-500">Tools</div>
+        </div>
+        <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">13</div>
+            <div class="text-sm text-slate-500">Code Files</div>
+        </div>
+        <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-amber-400 mb-1">3</div>
+            <div class="text-sm text-slate-500">Insights</div>
+        </div>
+    </div>
+</header>
         
-        <!-- Ticket Cards Grid -->
-        <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3">
+        <!-- Ticket Cards -->
+        <div class="space-y-6 mb-12">
             
-            <!-- TKT-118: Research -->
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 card-hover ticket-research overflow-hidden">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                            <i data-lucide="microscope" class="w-3 h-3 mr-1"></i>
-                            Research
-                        </span>
-                        <span class="text-sm text-gray-400 font-mono">TKT-118</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">BLS Jobs Revision Analysis</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Problem</p>
-                            <p class="text-sm text-gray-700">Fed made policy on data off by ~400,000 jobs. Pattern or anomaly? BLS revisions showed 69% cut to 2024-25 payroll estimates.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Approach</p>
-                            <p class="text-sm text-gray-700">Birth-death model deep-dive + academic literature review via sub-agent (Abraham et al. 2009, Mankiw & Shapiro 1986, Fed research).</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Finding</p>
-                            <p class="text-sm text-gray-700"><strong>NO systematic bias over 60 years.</strong> Fed research shows symmetric revision distribution. 2024-25 within normal variation.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                            <i data-lucide="file-code" class="w-4 h-4 text-purple-500"></i>
-                            <span><code class="bg-gray-100 px-2 py-1 rounded text-xs">bls_revision_analyzer_v3.py</code> (390 lines)</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TKT-115: Task -->
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 card-hover ticket-task overflow-hidden">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                            <i data-lucide="folder-tree" class="w-3 h-3 mr-1"></i>
-                            Task
-                        </span>
-                        <span class="text-sm text-gray-400 font-mono">TKT-115</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Document Restructure</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Problem</p>
-                            <p class="text-sm text-gray-700">Core documents drifted from original purpose. AGENTS.md (13KB) contained tool guides, TOOLS.md (10KB) had setup guides, MEMORY.md mixed index with specs.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Approach</p>
-                            <p class="text-sm text-gray-700">Audit → restructure → create 4 reference docs in <code class="bg-gray-100 px-1 rounded text-xs">/tools/reference/</code> → trim core files.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Finding</p>
-                            <p class="text-sm text-gray-700"><strong>40-60% size reduction.</strong> AGENTS.md 6.0KB, TOOLS.md 4.9KB, MEMORY.md 4.0KB — all meet targets.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                            <i data-lucide="files" class="w-4 h-4 text-emerald-500"></i>
-                            <span>4 new reference docs created</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TKT-119: Task -->
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 card-hover ticket-task overflow-hidden">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                            <i data-lucide="clipboard-list" class="w-3 h-3 mr-1"></i>
-                            Task
-                        </span>
-                        <span class="text-sm text-gray-400 font-mono">TKT-119</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Planning Prompts Integration</h3>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Problem</p>
-                            <p class="text-sm text-gray-700">Tickets created with minimal planning → vague scope, missed optimization opportunities, unclear success criteria.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Approach</p>
-                            <p class="text-sm text-gray-700">Integrate 10 planning prompts into ticket template to guide better scoping, tool selection, and outcome definition.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Finding</p>
-                            <p class="text-sm text-gray-700"><strong>Prompts drive better task design.</strong> Model selection, 10x ambition check, dependency mapping now standard.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                            <i data-lucide="list-checks" class="w-4 h-4 text-emerald-500"></i>
-                            <span>10 prompts in ticket-template.md</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </div>
-
-        <!-- Key Findings Section -->
-        <section class="mt-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                <span class="p-2 bg-amber-100 rounded-lg">
-                    <i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i>
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-slate-400"></i>
                 </span>
-                Key Findings
-            </h2>
-            
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-purple-100 rounded-lg">
-                            <i data-lucide="scale" class="w-5 h-5 text-purple-600"></i>
-                        </div>
-                        <h3 class="font-semibold text-gray-900">Research Quality</h3>
-                    </div>
-                    <p class="text-sm text-gray-600">Contrarian framework with opposition view sourcing (COPAFS, SF Fed) now standard. Confidence revised down from 60% → 35% based on evidence.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-emerald-100 rounded-lg">
-                            <i data-lucide="layout" class="w-5 h-5 text-emerald-600"></i>
-                        </div>
-                        <h3 class="font-semibold text-gray-900">Information Architecture</h3>
-                    </div>
-                    <p class="text-sm text-gray-600">Clear document ownership established: AGENTS.md = behavior, TOOLS.md = quick ref, MEMORY.md = index. Cross-references verified.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-blue-100 rounded-lg">
-                            <i data-lucide="git-branch" class="w-5 h-5 text-blue-600"></i>
-                        </div>
-                        <h3 class="font-semibold text-gray-900">Reusable Components</h3>
-                    </div>
-                    <p class="text-sm text-gray-600">Python analyzer, reference doc patterns, planning prompts — all designed for reuse across future tickets.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Metrics Dashboard -->
-        <section class="mt-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                <span class="p-2 bg-indigo-100 rounded-lg">
-                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-600"></i>
-                </span>
-                Activity Snapshot
-            </h2>
-            
-            <div class="grid gap-4 md:grid-cols-4">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
-                    <p class="text-3xl font-bold text-indigo-600">14</p>
-                    <p class="text-sm text-gray-500 mt-1">Tickets Advanced</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
-                    <p class="text-3xl font-bold text-emerald-600">4</p>
-                    <p class="text-sm text-gray-500 mt-1">Tools Deployed</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
-                    <p class="text-3xl font-bold text-amber-600">3</p>
-                    <p class="text-sm text-gray-500 mt-1">Insights Found</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
-                    <p class="text-3xl font-bold text-purple-600">390</p>
-                    <p class="text-sm text-gray-500 mt-1">Lines of Code</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <p class="text-sm text-gray-500">
-                        Generated by <span class="font-medium text-gray-900">Rex</span> · 
-                        OpenClaw Workspace · 
-                        12 Feb 2026
-                    </p>
-                    <p class="text-xs text-gray-400 mt-1">
-                        Phase 1 MVP · Static showcase · < 3s load time
-                    </p>
-                </div>
-                <div class="flex gap-4">
-                    <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/board.md" 
-                       target="_blank"
-                       class="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-800 font-medium">
-                        <i data-lucide="layout-kanban" class="w-4 h-4 mr-2"></i>
-                        Full Kanban Board
-                    </a>
-                    <a href="https://github.com/rex-openclaw/openclaw-workspace" 
-                       target="_blank"
-                       class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 font-medium">
-                        <i data-lucide="github" class="w-4 h-4 mr-2"></i>
-                        Workspace
-                    </a>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-115</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
+                            Done
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">Tidy core workspace documents - clarify goals, reduce duplication</h2>
                 </div>
             </div>
+            
         </div>
-    </footer>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">Audit and restructure the 8 core Markdown documents in `/workspace/` root. Each document has drifted from its original purpose — AGENTS.md contains tool guides, TOOLS.md has environment architecture, MEMORY.md mixes index with detailed specs. Goal: define clear ownership for each document, move detailed content to `/tools/` or `/memory/` subdocs, and establish cross-references.</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        
+        <!-- Approach Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
+                <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider">Approach</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                **Recommended Model:** capable  &lt;br&gt;**Rationale:** This is strategic framework design — requires nuanced judgment about document boundaries and clarity vs. completeness trade-offs&lt;br&gt;&lt;br&gt;**Execution Approach:**&lt;br&gt;1. Create missing `/tools/reference/` documents with offloaded content&lt;br&gt;2. Edit core documents to remove detailed content, add cross-references&lt;br&gt;3. Verify no broken links (internal references)&lt;br&gt;4. Update readme.md if orientation changes&lt;br&gt;&lt;br&gt;**Content to Move (detailed):**&lt;br&gt;&lt;br&gt;From AGENTS.md:&lt;br&gt;- File List...
+            </div>
+        </div>
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                - [ ] AGENTS.md ≤ 6KB (focused on behavior, not mechanics)&lt;br&gt;- [ ] TOOLS.md ≤ 5KB (quick reference only)&lt;br&gt;- [ ] MEMORY.md ≤ 4KB (index, not encyclopedia)&lt;br&gt;- [ ] New `/tools/reference/workflow-guide.md` created with offloaded AGENTS.md content&lt;br&gt;- [ ] New `/tools/reference/gog-setup.md` created with offloaded TOOLS.md content&lt;br&gt;- [ ] New `/tools/reference/python-env.md` created with offloaded TOOLS.md content&lt;br&gt;- [ ] New `/tools/reference/browser-config.md` created with offloaded MEMORY.md content&lt;br&gt;- [ ]...
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    
+    <!-- What This Enables Section -->
+    
+    
+    <!-- Tools Used -->
+    
+</article>
+            
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="microscope" class="w-5 h-5 text-slate-400"></i>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-118</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
+                            Done
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">Research US jobs revision methodology and pattern</h2>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">Investigate US Bureau of Labor Statistics (BLS) jobs revision methodology to understand if January 2026&#39;s 69% cut to 2024-25 data is systematic bias or one-off error.</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        
+        <!-- Approach Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
+                <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider">Approach</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                **Recommended Model:** research  &lt;br&gt;**Rationale:** Requires deep dive into BLS methodology, academic critiques, historical revision patterns&lt;br&gt;&lt;br&gt;**Research Questions:**&lt;br&gt;1. How does BLS birth-death model work? Known limitations?&lt;br&gt;2. Historical revision patterns: are downward revisions increasing?&lt;br&gt;3. Academic/ Fed researcher critiques of establishment survey methodology&lt;br&gt;4. Alternative metrics (household survey, QCEW) — do they show same pattern?&lt;br&gt;5. Policy implications: if systematic, what should Fed/...
+            </div>
+        </div>
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                **80/20 Version (Minimum):**&lt;br&gt;- [x] BLS technical note summary (birth-death model limitations) — Documented in analysis report&lt;br&gt;- [x] 3-year revision pattern check completed — 13 months analyzed, pattern identified&lt;br&gt;- [x] Systematic vs one-off hypothesis assessed — Partially confirmed, 55% confidence&lt;br&gt;&lt;br&gt;**Exceptional Version:**&lt;br&gt;- [x] **5+ year historical revision analysis — COMPLETED** (47 months, 2022-2025; BLS official data 1979-2025)&lt;br&gt;- [x] Full academic literature review (Brookings, NBER, Fed p...
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    <div class="p-6 border-t border-slate-700/30 bg-slate-800/30">
+        <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="package" class="w-4 h-4 text-violet-400"></i>
+            <h3 class="text-sm font-semibold text-violet-400 uppercase tracking-wider">Deliverables</h3>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/analysis_results_v2.json" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">analysis_results_v2.json</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/analysis_results_v3.json" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">analysis_results_v3.json</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analysis_v2.md" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">bls_revision_analysis_v2.md</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analysis_v3.md" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">bls_revision_analysis_v3.md</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer.py" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">bls_revision_analyzer.py</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer_v2.py" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">bls_revision_analyzer_v2.py</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer_v3.py" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">bls_revision_analyzer_v3.py</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/revision_data_2022_2025.csv" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">revision_data_2022_2025.csv</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/revision_data_2022_2025_v2.csv" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">revision_data_2022_2025_v2.csv</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/revision_data_enhanced.csv" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">revision_data_enhanced.csv</span>
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- Code Previews -->
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview bls_revision_analyzer.py
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">bls_revision_analyzer.py</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer.py"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+BLS Jobs Revision Pattern Analyzer
+TKT-118 Research Prototype — SS-010 High-Agency Mode
 
+Analyzes historical BLS establishment survey revisions to detect systematic bias.
+Uses FRED API + BLS API to track revision patterns over time.
+
+Usage:
+    python bls_revision_analyzer.py --fetch-data
+    python bls_revision_analyzer.py --analyze-pattern
+    python bls_revision_analyzer.py --compare-benchmark
+&#34;&#34;&#34;
+
+import json
+import csv
+import argparse
+from datetime import datetime, timedelta
+from dataclasses import dataclass, asdict
+from typing import List, Optional, Dict, Tuple
+from pathlib import Path
+import statistics
+
+# Configuration
+DATA_DIR = Path(&#34;/home/rex/.openclaw/workspace/data/bls_revisions&#34;)
+OUTPUT_DIR = Path(&#34;/home/rex/.openclaw/workspace/deliverables/TKT-118&#34;)
+
+# BLS Series IDs
+ESTABLISHMENT_SURVEY = &#34;CES0000000001&#34;  # Total nonfarm payrolls
+HOUSEHOLD_SURVEY_EMP = &#34;LNS12000000&#34;    # Household survey employment
+UNEMPLOYMENT_RATE = &#34;LNS14000000&#34;       # Unemployment rate
+
+
+@dataclass
+class RevisionRecord:
+    &#34;&#34;&#34;Single revision observation&#34;&#34;&#34;
+    report_date: str          # When initial report was published
+    reference_period: str     # Which month/year the data covers
+    initial_estimate: int     # First reported number
+    first_revision: Optional[int] = None   # 1-month revision
+    second_revision: Optional[int] = None  # 2-month revision
+    benchmark_revision: Optional[int] = None  # Annual QCEW benchmark
+    
+    @property
+    def first_revision_delta(self) -&gt; Optional[int]:
+        if self.first_revision is not None:
+            return self.first_revision - self.initial_estimate
+        return None
+    
+    @property</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview bls_revision_analyzer_v2.py
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">bls_revision_analyzer_v2.py</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer_v2.py"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+BLS Jobs Revision Pattern Analyzer - Enhanced v2.0
+TKT-118 Research Prototype — SS-010 High-Agency Mode
+
+Analyzes historical BLS establishment survey revisions to detect systematic bias.
+Enhanced with research findings from Feb 2026 SS-010 session.
+
+Usage:
+    python bls_revision_analyzer.py --fetch-data
+    python bls_revision_analyzer.py --analyze-pattern
+    python bls_revision_analyzer.py --generate-report
+    python bls_revision_analyzer.py --full-analysis
+&#34;&#34;&#34;
+
+import json
+import csv
+import argparse
+from datetime import datetime, timedelta
+from dataclasses import dataclass, asdict
+from typing import List, Optional, Dict, Tuple
+from pathlib import Path
+import statistics
+
+# Configuration
+DATA_DIR = Path(&#34;/home/rex/.openclaw/workspace/data/bls_revisions&#34;)
+OUTPUT_DIR = Path(&#34;/home/rex/.openclaw/workspace/deliverables/TKT-118&#34;)
+
+# Research findings from SS-010 session (Feb 2026)
+RESEARCH_FINDINGS = {
+    &#34;revision_period&#34;: &#34;2024-01 to 2025-01&#34;,
+    &#34;total_downward_revisions&#34;: &#34;92.3%&#34;,
+    &#34;mean_revision&#34;: -46077,
+    &#34;mean_pct_change&#34;: -36.8,
+    &#34;key_sources&#34;: [
+        &#34;CNBC (Feb 11, 2026): Every month in 2025 saw negative revisions&#34;,
+        &#34;NYT: 69% reduction (584k to 181k jobs)&#34;,
+        &#34;NBC: BLS projected 911k downward revision in advance&#34;,
+        &#34;COPAFS: Revisions reflect economic changes, not bias&#34;
+    ]
+}
+
+
+@dataclass
+class RevisionRecord:
+    &#34;&#34;&#34;Single revision observation&#34;&#34;&#34;
+    report_date: str
+    reference_period: str
+    initial_estimate: int
+    first_revision: Optional[int] = None</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview bls_revision_analyzer_v3.py
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">bls_revision_analyzer_v3.py</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-118/bls_revision_analyzer_v3.py"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+BLS Revision Analyzer v3.0 - High Agency Research Tool
+Enhanced with 5+ year historical analysis and FRED API integration
+For TKT-118: US Jobs Revision Methodology Research
+
+Usage:
+    python bls_revision_analyzer_v3.py --analyze-historical
+    python bls_revision_analyzer_v3.py --generate-report
+    python bls_revision_analyzer_v3.py --fetch-fred --api-key YOUR_KEY
+&#34;&#34;&#34;
+
+import csv
+import json
+import argparse
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple
+from dataclasses import dataclass, asdict
+
+@dataclass
+class RevisionPeriod:
+    &#34;&#34;&#34;Represents a time period of BLS revisions&#34;&#34;&#34;
+    period: str
+    mean_2nd_1st: float  # Mean revision: 2nd - 1st release
+    mean_3rd_2nd: float  # Mean revision: 3rd - 2nd release
+    mean_3rd_1st: float  # Mean revision: 3rd - 1st release
+    abs_mean_2nd_1st: float  # Absolute mean revision
+    abs_mean_3rd_1st: float
+    pattern: str  # &#34;upward&#34;, &#34;downward&#34;, &#34;neutral&#34;
+
+@dataclass
+class MonthlyRevision:
+    &#34;&#34;&#34;Individual month revision data&#34;&#34;&#34;
+    year: int
+    month: str
+    release_1st: float
+    release_2nd: float
+    release_3rd: float
+    revision_2nd_1st: float
+    revision_3rd_2nd: float
+    revision_3rd_1st: float
+
+class BLSRevisionAnalyzer:
+    &#34;&#34;&#34;Analyze BLS nonfarm payroll revision patterns&#34;&#34;&#34;
+    
+    def __init__(self, data_dir: str = &#34;kanban/deliverables/TKT-118&#34;):
+        self.data_dir = Path(data_dir)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        </code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    
+    
+    <!-- What This Enables Section -->
+    
+    <div class="p-6 border-t border-slate-700/30 bg-gradient-to-r from-amber-500/5 to-transparent">
+        <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="rocket" class="w-4 h-4 text-amber-400"></i>
+            <h3 class="text-sm font-semibold text-amber-400 uppercase tracking-wider">What This Enables</h3>
+        </div>
+        <div class="text-slate-300 text-sm leading-relaxed pl-6">
+            **Immediate (Next Session):**&lt;br&gt;1. **Sub-agent results:** Review academic literature findings from research model sub-agent&lt;br&gt;2. **FRED API:** Obtain API key and implement historical data integration (2019-2025)&lt;br&gt;3. **Statistical validation:** Test hypothesis with 5+ year dataset for statistical significance&lt;br&gt;&lt;br&gt;**Medium-term:**&lt;br&gt;4. **Cross-country:** Compare to ABS Labour Force Survey revision patterns (Australia)&lt;br&gt;5. **Historical comparison:** Analyze 2008-09 recession revisions to test cycle-turn hy...
+        </div>
+    </div>
+    
+    
+    <!-- Tools Used -->
+    
+    <div class="px-6 py-3 border-t border-slate-700/30 bg-slate-800/20">
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+            <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+            <span>Tools:</span>
+            
+            <span class="px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">** Browser automation (targeted use) — Attempted BLS/Fed documentation retrieval; pivoted to synthesis when blocked. Demonstrates adaptive research methodology.</span>
+            
+        </div>
+    </div>
+    
+</article>
+            
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-slate-400"></i>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-119</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
+                            Done
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">Ticket Planning Prompts — Improve Task Design</h2>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">Integrate planning prompts into the kanban ticket template to improve task design quality. These questions guide better scoping, tool selection, and outcome definition when creating or refining tickets.</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        
+        <!-- Approach Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
+                <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider">Approach</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                **Recommended Model:** capable&lt;br&gt;**Rationale:** Framework design requiring structured thinking about effective prompts
+            </div>
+        </div>
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                - [x] Planning prompts integrated into `/kanban/ticket-template.md` Details section&lt;br&gt;- [x] Prompts are concise and actionable (no more than 10)&lt;br&gt;- [x] Template updated
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    
+    <!-- What This Enables Section -->
+    
+    
+    <!-- Tools Used -->
+    
+</article>
+            
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-slate-400"></i>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-122</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
+                            Done
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">Build ticket parser and HTML generator (Phase 2)</h2>
+                </div>
+            </div>
+            
+            <span class="px-2 py-1 rounded-lg text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/30">
+                HIGH
+            </span>
+            
+        </div>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">Build a Python tool that automatically parses kanban tickets and generates the Daily Deliverables Showcase HTML. Extracts frontmatter, identifies modified tickets in last 24h, discovers deliverables, and outputs production-ready HTML using the TKT-121 MVP design patterns.</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        
+        <!-- Approach Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
+                <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider">Approach</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                **Recommended Model:** capable&lt;br&gt;**Rationale:** Tool design requiring structured thinking about data extraction, templating, and CLI architecture
+            </div>
+        </div>
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                - [ ] `generate_showcase.py` CLI tool created&lt;br&gt;- [ ] Auto-discovers tickets modified in last 24h&lt;br&gt;- [ ] Parses YAML frontmatter correctly&lt;br&gt;- [ ] Extracts Summary/Problem/Approach/Finding sections&lt;br&gt;- [ ] Discovers deliverables in `/kanban/deliverables/TKT-XXX/`&lt;br&gt;- [ ] Generates valid HTML using Jinja2 templates&lt;br&gt;- [ ] CLI supports --date, --tickets, --output, --dry-run flags&lt;br&gt;- [ ] Templates match TKT-121 MVP design&lt;br&gt;- [ ] Handles 3+ tickets without errors&lt;br&gt;- [ ] Includes error handling for malformed t...
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    <div class="p-6 border-t border-slate-700/30 bg-slate-800/30">
+        <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="package" class="w-4 h-4 text-violet-400"></i>
+            <h3 class="text-sm font-semibold text-violet-400 uppercase tracking-wider">Deliverables</h3>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/README.md" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">README.md</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/base.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">base.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/footer.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">footer.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/generate_showcase.cpython-312.pyc" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file" class="w-3.5 h-3.5 text-slate-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">generate_showcase.cpython-312.pyc</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/generate_showcase.py" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">generate_showcase.py</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/hero.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">hero.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/ticket_card.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">ticket_card.html</span>
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- Code Previews -->
+        
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview base.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">base.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/base.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+    &lt;title&gt;Daily Deliverables — {{ date.strftime(&#39;%d %b %Y&#39;) }} | OpenClaw&lt;/title&gt;
+    &lt;style&gt;
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-hover: #1c2128;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --info: #a371f7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, &#39;Noto Sans&#39;, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 {
+            font-size: 2.5rem;</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview footer.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">footer.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/footer.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;div class=&#34;footer&#34;&gt;
+    &lt;p&gt;Generated by OpenClaw on {{ date.strftime(&#39;%Y-%m-%d %H:%M&#39;) }} UTC&lt;/p&gt;
+    &lt;p style=&#34;margin-top: 8px;&#34;&gt;
+        &lt;a href=&#34;https://github.com/rex-openclaw/openclaw-workspace/tree/master/kanban&#34;&gt;View Kanban Board&lt;/a&gt;
+    &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview generate_showcase.py
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">generate_showcase.py</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/generate_showcase.py"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+generate_showcase.py - Daily Deliverables Showcase Generator
+Parses kanban tickets and generates HTML showcase pages.
+&#34;&#34;&#34;
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import List, Optional, Dict, Any
+
+import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+@dataclass
+class Deliverable:
+    &#34;&#34;&#34;Represents a deliverable file.&#34;&#34;&#34;
+    filename: str
+    path: str
+    type: str  # &#39;code&#39;, &#39;document&#39;, &#39;data&#39;, &#39;image&#39;
+    size_bytes: int
+    language: Optional[str] = None
+
+
+@dataclass
+class Ticket:
+    &#34;&#34;&#34;Represents a parsed kanban ticket.&#34;&#34;&#34;
+    id: str
+    title: str
+    status: str
+    type: str
+    priority: str
+    summary: str
+    problem: str
+    approach: str
+    finding: str
+    deliverables: List[Deliverable] = field(default_factory=list)
+    tools_used: List[str] = field(default_factory=list)
+    updated_date: Optional[datetime] = None
+    raw_content: str = &#34;&#34;
+
+
+class TicketParser:
+    &#34;&#34;&#34;Parses kanban ticket markdown files.&#34;&#34;&#34;</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview hero.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">hero.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/hero.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;header&gt;
+    &lt;h1&gt;🚀 Daily Deliverables&lt;/h1&gt;
+    &lt;span class=&#34;date-badge&#34;&gt;{{ date.strftime(&#39;%A, %d %B %Y&#39;) }}&lt;/span&gt;
+&lt;/header&gt;
+
+&lt;div class=&#34;stats-bar&#34;&gt;
+    &lt;div class=&#34;stat-card&#34;&gt;
+        &lt;div class=&#34;stat-number&#34;&gt;{{ stats.tickets_count }}&lt;/div&gt;
+        &lt;div class=&#34;stat-label&#34;&gt;Tickets&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;stat-card&#34;&gt;
+        &lt;div class=&#34;stat-number&#34;&gt;{{ stats.deliverables_count }}&lt;/div&gt;
+        &lt;div class=&#34;stat-label&#34;&gt;Deliverables&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;stat-card&#34;&gt;
+        &lt;div class=&#34;stat-number&#34;&gt;{{ completed|length }}&lt;/div&gt;
+        &lt;div class=&#34;stat-label&#34;&gt;Completed&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview ticket_card.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">ticket_card.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-122/ticket_card.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;div class=&#34;ticket-card&#34;&gt;
+    &lt;div class=&#34;ticket-header&#34;&gt;
+        &lt;div&gt;
+            &lt;span class=&#34;ticket-id&#34;&gt;{{ ticket.id }}&lt;/span&gt;
+            &lt;h3 class=&#34;ticket-title&#34;&gt;{{ ticket.title }}&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;badges&#34;&gt;
+            &lt;span class=&#34;badge badge-type&#34;&gt;{{ ticket.type }}&lt;/span&gt;
+            {% if ticket.status.lower() in (&#39;done&#39;, &#39;completed&#39;) %}
+            &lt;span class=&#34;badge badge-status-done&#34;&gt;{{ ticket.status }}&lt;/span&gt;
+            {% elif ticket.status.lower() in (&#39;in progress&#39;, &#39;active&#39;) %}
+            &lt;span class=&#34;badge badge-status-progress&#34;&gt;{{ ticket.status }}&lt;/span&gt;
+            {% else %}
+            &lt;span class=&#34;badge badge-status-backlog&#34;&gt;{{ ticket.status }}&lt;/span&gt;
+            {% endif %}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    {% if ticket.summary %}
+    &lt;div class=&#34;ticket-summary&#34;&gt;
+        {{ ticket.summary }}
+    &lt;/div&gt;
+    {% endif %}
+    
+    {% if ticket.problem %}
+    &lt;div class=&#34;ticket-section&#34;&gt;
+        &lt;h4&gt;Problem&lt;/h4&gt;
+        &lt;p&gt;{{ ticket.problem[:200] }}{% if ticket.problem|length &gt; 200 %}...{% endif %}&lt;/p&gt;
+    &lt;/div&gt;
+    {% endif %}
+    
+    {% if ticket.approach %}
+    &lt;div class=&#34;ticket-section&#34;&gt;
+        &lt;h4&gt;Approach&lt;/h4&gt;
+        &lt;p&gt;{{ ticket.approach[:200] }}{% if ticket.approach|length &gt; 200 %}...{% endif %}&lt;/p&gt;
+    &lt;/div&gt;
+    {% endif %}
+    
+    {% if ticket.finding %}
+    &lt;div class=&#34;ticket-section&#34;&gt;
+        &lt;h4&gt;Key Finding&lt;/h4&gt;
+        &lt;p&gt;{{ ticket.finding[:200] }}{% if ticket.finding|length &gt; 200 %}...{% endif %}&lt;/p&gt;
+    &lt;/div&gt;
+    {% endif %}
+    
+    {% if ticket.deliverables %}
+    &lt;div class=&#34;ticket-section&#34;&gt;
+        &lt;h4&gt;Deliverables ({{ ticket.deliverables|length }})&lt;/h4&gt;
+        &lt;div class=&#34;deliverables-list&#34;&gt;
+            {% for d in ticket.deliverables %}</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+    </div>
+    
+    
+    <!-- What This Enables Section -->
+    
+    
+    <!-- Tools Used -->
+    
+</article>
+            
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-slate-400"></i>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-130</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-blue-500/15 text-blue-400 border-blue-500/30">
+                            Ready
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">FIX: Rebuild showcase generator to meet TKT-120 PRD requirements</h2>
+                </div>
+            </div>
+            
+            <span class="px-2 py-1 rounded-lg text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/30">
+                HIGH
+            </span>
+            
+        </div>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">TKT-122 built a ticket list generator, not a showcase. TKT-123 automation was disabled because the output fails TKT-120 PRD requirements. This ticket rebuilds the generator to actually implement the PRD: hero section with theme synthesis, narrative problem→approach→finding cards, embedded code snippets, visual hierarchy, and &#34;what this enables&#34; forward-looking closure.</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-red-400"></i>
+                <h3 class="text-sm font-semibold text-red-400 uppercase tracking-wider">Problem</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                **Current output (TKT-122):**&lt;br&gt;- Basic HTML list of tickets with links&lt;br&gt;- Raw deliverable filenames with emojis&lt;br&gt;- No narrative structure&lt;br&gt;- No visual hierarchy&lt;br&gt;- No code embedding&lt;br&gt;- No theme synthesis&lt;br&gt;&lt;br&gt;**Required output (TKT-120 PRD):**&lt;br&gt;- Hero section: Date, aggregate metrics (tickets, tools, insights), &amp;quot;Theme of the Day&amp;quot;&lt;br&gt;- Narrative cards: Problem → Approach → Finding structure&lt;br&gt;- Embedded code snippets from deliverables&lt;br&gt;- Visual demos/screenshots where available&lt;br&gt;- Key insights aggregation&lt;br&gt;- &amp;quot;Wh...
+            </div>
+        </div>
+        
+        
+        <!-- Approach Section -->
+        
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
+                <h3 class="text-sm font-semibold text-blue-400 uppercase tracking-wider">Approach</h3>
+            </div>
+            <div class="text-slate-300 text-sm leading-relaxed pl-6">
+                - Parse `### Finding` / `## Findings` / `### Results` → FINDING section&lt;br&gt;- Parse `## Deliverables` section → DELIVERABLES section&lt;br&gt;- Parse `### Next Actions` / `## Next Steps` → WHAT THIS ENABLES section
+            </div>
+        </div>
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                - Parse `## Deliverables` section → DELIVERABLES section&lt;br&gt;- Parse `### Next Actions` / `## Next Steps` → WHAT THIS ENABLES section
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    <div class="p-6 border-t border-slate-700/30 bg-slate-800/30">
+        <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="package" class="w-4 h-4 text-violet-400"></i>
+            <h3 class="text-sm font-semibold text-violet-400 uppercase tracking-wider">Deliverables</h3>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/base.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">base.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/generate_showcase_v2.py" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">generate_showcase_v2.py</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/hero.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">hero.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/insights.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">insights.html</span>
+                </a>
+            </div>
+            
+            <div class="group relative">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/ticket_card.html" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600/30 text-xs text-slate-300 hover:bg-slate-700 hover:border-slate-500/50 transition-all">
+                    
+                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-blue-400"></i>
+                    
+                    <span class="truncate max-w-[200px]">ticket_card.html</span>
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- Code Previews -->
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview base.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">base.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/base.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+    &lt;title&gt;Daily Deliverables — {{ date.strftime(&#39;%d %b %Y&#39;) }} | OpenClaw&lt;/title&gt;
+    &lt;script src=&#34;https://cdn.tailwindcss.com&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://unpkg.com/lucide@latest&#34;&gt;&lt;/script&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css&#34;&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: &#39;#1e293b&#39;,
+                            900: &#39;#0f172a&#39;,
+                            950: &#39;#020617&#39;,
+                        }
+                    }
+                }
+            }
+        }
+    &lt;/script&gt;
+    &lt;style&gt;
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+        }
+        .section-divider {
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.2), transparent);
+        }
+        details &gt; summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details &gt; summary::-webkit-details-marker {
+            display: none;</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview generate_showcase_v2.py
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">generate_showcase_v2.py</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/generate_showcase_v2.py"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-python">#!/usr/bin/env python3
+&#34;&#34;&#34;
+generate_showcase_v2.py - Daily Deliverables Showcase Generator v2
+Implements TKT-120 PRD requirements with narrative ticket cards,
+hero section with theme synthesis, and embedded code snippets.
+&#34;&#34;&#34;
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import List, Optional, Dict, Any, Tuple
+from collections import Counter
+
+import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+@dataclass
+class Deliverable:
+    &#34;&#34;&#34;Represents a deliverable file.&#34;&#34;&#34;
+    filename: str
+    path: str
+    type: str  # &#39;code&#39;, &#39;document&#39;, &#39;data&#39;, &#39;image&#39;
+    size_bytes: int
+    language: Optional[str] = None
+    content_preview: Optional[str] = None  # First 50 lines for code files
+
+
+@dataclass
+class Ticket:
+    &#34;&#34;&#34;Represents a parsed kanban ticket with narrative sections.&#34;&#34;&#34;
+    id: str
+    title: str
+    status: str
+    type: str
+    priority: str
+    summary: str
+    problem: str
+    approach: str
+    finding: str
+    deliverables: List[Deliverable] = field(default_factory=list)
+    tools_used: List[str] = field(default_factory=list)
+    next_actions: str = &#34;&#34;  # For &#34;what this enables&#34;
+    updated_date: Optional[datetime] = None
+    raw_content: str = &#34;&#34;</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview hero.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">hero.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/hero.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;!-- Hero Section --&gt;
+&lt;header class=&#34;hero-gradient rounded-2xl p-6 md:p-10 mb-10 border border-slate-700/30&#34;&gt;
+    &lt;div class=&#34;text-center mb-8&#34;&gt;
+        &lt;div class=&#34;inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 text-slate-400 text-sm mb-4&#34;&gt;
+            &lt;i data-lucide=&#34;calendar&#34; class=&#34;w-4 h-4&#34;&gt;&lt;/i&gt;
+            &lt;span&gt;{{ date.strftime(&#39;%A, %d %B %Y&#39;) }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h1 class=&#34;text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent mb-4&#34;&gt;
+            Daily Deliverables
+        &lt;/h1&gt;
+        &lt;p class=&#34;text-lg md:text-xl text-slate-400&#34;&gt;
+            {{ theme }}
+        &lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Metrics Grid --&gt;
+    &lt;div class=&#34;grid grid-cols-2 md:grid-cols-4 gap-4&#34;&gt;
+        &lt;div class=&#34;bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center&#34;&gt;
+            &lt;div class=&#34;text-2xl md:text-3xl font-bold text-blue-400 mb-1&#34;&gt;{{ stats.tickets_count }}&lt;/div&gt;
+            &lt;div class=&#34;text-sm text-slate-500&#34;&gt;Tickets&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center&#34;&gt;
+            &lt;div class=&#34;text-2xl md:text-3xl font-bold text-violet-400 mb-1&#34;&gt;{{ stats.tools_count }}&lt;/div&gt;
+            &lt;div class=&#34;text-sm text-slate-500&#34;&gt;Tools&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center&#34;&gt;
+            &lt;div class=&#34;text-2xl md:text-3xl font-bold text-emerald-400 mb-1&#34;&gt;{{ stats.code_count }}&lt;/div&gt;
+            &lt;div class=&#34;text-sm text-slate-500&#34;&gt;Code Files&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;bg-slate-800/40 rounded-xl p-4 border border-slate-700/30 text-center&#34;&gt;
+            &lt;div class=&#34;text-2xl md:text-3xl font-bold text-amber-400 mb-1&#34;&gt;{{ stats.insights_count }}&lt;/div&gt;
+            &lt;div class=&#34;text-sm text-slate-500&#34;&gt;Insights&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/header&gt;
+</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview insights.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">insights.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/insights.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;!-- Key Insights Section --&gt;
+&lt;section class=&#34;bg-gradient-to-br from-violet-500/10 via-purple-500/5 to-transparent rounded-2xl border border-violet-500/20 p-6 md:p-8 mb-10&#34;&gt;
+    &lt;div class=&#34;flex items-center gap-3 mb-6&#34;&gt;
+        &lt;div class=&#34;w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center&#34;&gt;
+            &lt;i data-lucide=&#34;key&#34; class=&#34;w-5 h-5 text-violet-400&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&#34;text-xl font-semibold text-slate-100&#34;&gt;Key Insights&lt;/h2&gt;
+    &lt;/div&gt;
+    
+    &lt;div class=&#34;grid md:grid-cols-2 gap-4&#34;&gt;
+        {% for insight in stats.insights %}
+        &lt;div class=&#34;flex items-start gap-3 p-4 rounded-xl bg-slate-800/40 border border-slate-700/30&#34;&gt;
+            &lt;div class=&#34;w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5&#34;&gt;
+                &lt;i data-lucide=&#34;sparkles&#34; class=&#34;w-3.5 h-3.5 text-violet-400&#34;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;p class=&#34;text-sm text-slate-300 leading-relaxed&#34;&gt;{{ insight }}&lt;/p&gt;
+        &lt;/div&gt;
+        {% endfor %}
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+            
+            <details class="mt-3">
+                <summary class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-3 h-3"></i>
+                    Preview ticket_card.html
+                </summary>
+                <div class="mt-3 rounded-lg overflow-hidden border border-slate-700/50">
+                    <div class="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-700/50">
+                        <span class="text-xs text-slate-500">ticket_card.html</span>
+                        <a href="https://github.com/rex-openclaw/openclaw-workspace/blob/master/kanban/deliverables/TKT-130/ticket_card.html"
+                           target="_blank"
+                           class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            <span>View full</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                    <div class="code-preview bg-slate-900/50">
+                        <pre class="!m-0 !rounded-none"><code class="language-html">&lt;!-- Ticket Card --&gt;
+&lt;article class=&#34;ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300&#34;&gt;
+    &lt;!-- Card Header --&gt;
+    &lt;div class=&#34;p-6 border-b border-slate-700/30&#34;&gt;
+        &lt;div class=&#34;flex flex-wrap items-start justify-between gap-4 mb-3&#34;&gt;
+            &lt;div class=&#34;flex items-center gap-3&#34;&gt;
+                &lt;span class=&#34;inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50&#34;&gt;
+                    &lt;i data-lucide=&#34;{{ ticket.type | type_icon }}&#34; class=&#34;w-5 h-5 text-slate-400&#34;&gt;&lt;/i&gt;
+                &lt;/span&gt;
+                &lt;div&gt;
+                    &lt;div class=&#34;flex items-center gap-2&#34;&gt;
+                        &lt;span class=&#34;text-xs font-mono text-blue-400&#34;&gt;{{ ticket.id }}&lt;/span&gt;
+                        &lt;span class=&#34;px-2 py-0.5 rounded-full text-xs font-medium border {{ ticket.status | status_class }}&#34;&gt;
+                            {{ ticket.status }}
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;h2 class=&#34;text-lg md:text-xl font-semibold text-slate-100 mt-1&#34;&gt;{{ ticket.title }}&lt;/h2&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            {% if ticket.priority == &#39;high&#39; or ticket.priority == &#39;critical&#39; %}
+            &lt;span class=&#34;px-2 py-1 rounded-lg text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/30&#34;&gt;
+                {{ ticket.priority | upper }}
+            &lt;/span&gt;
+            {% endif %}
+        &lt;/div&gt;
+        
+        {% if ticket.summary %}
+        &lt;p class=&#34;text-slate-400 text-sm leading-relaxed&#34;&gt;{{ ticket.summary }}&lt;/p&gt;
+        {% endif %}
+    &lt;/div&gt;
+    
+    &lt;!-- Narrative Sections --&gt;
+    &lt;div class=&#34;divide-y divide-slate-700/30&#34;&gt;
+        &lt;!-- Problem Section --&gt;
+        {% if ticket.problem %}
+        &lt;div class=&#34;p-6&#34;&gt;
+            &lt;div class=&#34;flex items-center gap-2 mb-3&#34;&gt;
+                &lt;i data-lucide=&#34;alert-circle&#34; class=&#34;w-4 h-4 text-red-400&#34;&gt;&lt;/i&gt;
+                &lt;h3 class=&#34;text-sm font-semibold text-red-400 uppercase tracking-wider&#34;&gt;Problem&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;text-slate-300 text-sm leading-relaxed pl-6&#34;&gt;
+                {{ ticket.problem | nl2br }}
+            &lt;/div&gt;
+        &lt;/div&gt;
+        {% endif %}
+        
+        &lt;!-- Approach Section --&gt;
+        {% if ticket.approach %}
+        &lt;div class=&#34;p-6&#34;&gt;
+            &lt;div class=&#34;flex items-center gap-2 mb-3&#34;&gt;</code></pre>
+                    </div>
+                </div>
+            </details>
+            
+        
+    </div>
+    
+    
+    <!-- What This Enables Section -->
+    
+    
+    <!-- Tools Used -->
+    
+</article>
+            
+                <!-- Ticket Card -->
+<article class="ticket-card bg-slate-800/40 rounded-2xl border border-slate-700/30 overflow-hidden card-glow transition-all duration-300">
+    <!-- Card Header -->
+    <div class="p-6 border-b border-slate-700/30">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-700/50">
+                    <i data-lucide="clipboard-list" class="w-5 h-5 text-slate-400"></i>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-blue-400">TKT-120</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border bg-slate-500/15 text-slate-400 border-slate-500/30">
+                            Backlog
+                        </span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-semibold text-slate-100 mt-1">PRD: Daily Deliverables Showcase Web Page</h2>
+                </div>
+            </div>
+            
+            <span class="px-2 py-1 rounded-lg text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/30">
+                HIGH
+            </span>
+            
+        </div>
+        
+        
+        <p class="text-slate-400 text-sm leading-relaxed">Develop a **Daily Deliverables Showcase** — a visually striking, interactive web page that automatically surfaces kanban tickets completed or significantly modified in the last 24 hours. Hosted on GitHub Pages (`public-pages`), this showcase transforms dry ticket logs into an engaging narrative of daily progress, featuring code snippets, visual demos, key findings, and forward-looking next steps.
+
+This is **not just a dashboard** — it&#39;s a **journal of capability**, demonstrating the tools, te...</p>
+        
+    </div>
+    
+    <!-- Narrative Sections -->
+    <div class="divide-y divide-slate-700/30">
+        <!-- Problem Section -->
+        
+        
+        <!-- Approach Section -->
+        
+        
+        <!-- Finding Section -->
+        
+        <div class="p-6 bg-emerald-500/5">
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-400"></i>
+                <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Finding</h3>
+            </div>
+            <div class="text-slate-200 text-sm leading-relaxed pl-6 font-medium">
+                - [x] Research complete — Principles of effective showcases identified&lt;br&gt;- [x] Problem articulated — Why current system falls short&lt;br&gt;- [x] Approach defined — Phased implementation pathway&lt;br&gt;- [x] Tool inventory — Full capability catalog from `/tools/`&lt;br&gt;- [x] Component design — Page sections specified&lt;br&gt;- [x] Ticket data — Last 24h modifications identified (20 tickets)&lt;br&gt;- [x] Reflection documented — What else would be valuable&lt;br&gt;- [ ] Future tickets suggested — Implementation roadmap&lt;br&gt;- [ ] Phase 1 MVP bu...
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Deliverables Section -->
+    
+    
+    <!-- What This Enables Section -->
+    
+    
+    <!-- Tools Used -->
+    
+    <div class="px-6 py-3 border-t border-slate-700/30 bg-slate-800/20">
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+            <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+            <span>Tools:</span>
+            
+            <span class="px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">Browser</span>
+            
+            <span class="px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">Python</span>
+            
+            <span class="px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">Web Search</span>
+            
+            <span class="px-2 py-0.5 rounded bg-slate-700/50 text-slate-400">Sub-agent             │</span>
+            
+        </div>
+    </div>
+    
+</article>
+            
+        </div>
+        
+        <!-- Key Insights Section -->
+        
+            <!-- Key Insights Section -->
+<section class="bg-gradient-to-br from-violet-500/10 via-purple-500/5 to-transparent rounded-2xl border border-violet-500/20 p-6 md:p-8 mb-10">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+            <i data-lucide="key" class="w-5 h-5 text-violet-400"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-slate-100">Key Insights</h2>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+        
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/40 border border-slate-700/30">
+            <div class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">- Parse `## Deliverables` section → DELIVERABLES section
+- Parse `### Next Actions` / `## Next Steps` → WHAT THIS ENABLES section.</p>
+        </div>
+        
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/40 border border-slate-700/30">
+            <div class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">highlight</p>
+        </div>
+        
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-800/40 border border-slate-700/30">
+            <div class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">** Structural regime shift detected — 2024-25 reverses 2003-present upward bias</p>
+        </div>
+        
+    </div>
+</section>
+        
+        
+        <!-- Footer -->
+        <footer class="text-center py-8 text-slate-500 text-sm border-t border-slate-800/50">
+            <p>Generated by OpenClaw on 12 Feb 2026 at 11:02</p>
+            <p class="mt-1">
+                <a href="https://github.com/rex-openclaw/openclaw-workspace/tree/master/kanban" class="text-blue-400 hover:text-blue-300 transition-colors" target="_blank">
+                    View all tickets on GitHub →
+                </a>
+            </p>
+        </footer>
+    </div>
+    
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.ticket-card').forEach(card => {
+            observer.observe(card);
+        });
     </script>
 </body>
 </html>
